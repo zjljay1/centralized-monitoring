@@ -5,12 +5,6 @@
         <span class="w-1 h-4 bg-blue-600 mr-2 rounded-full"></span>
         设备监视
       </h2>
-      <el-select v-model="selectedCompany" size="small" class="w-32" placeholder="选择分公司">
-        <el-option label="全部分公司" value="all" />
-        <el-option label="成都分公司" value="chengdu" />
-        <el-option label="重庆分公司" value="chongqing" />
-        <el-option label="贵阳分公司" value="guiyang" />
-      </el-select>
     </div>
     
     <!-- 设备类型与健康状态分布 (堆叠柱状图) -->
@@ -76,7 +70,6 @@ import VChart from 'vue-echarts'
 
 use([CanvasRenderer, BarChart, PieChart, TooltipComponent, LegendComponent, GridComponent])
 
-const selectedCompany = ref('all')
 const dialogVisible = ref(false)
 const currentType = ref('')
 const filterStatus = ref('')

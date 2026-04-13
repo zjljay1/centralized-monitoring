@@ -21,8 +21,10 @@
     </div>
 
     <!-- 实时报警滚动列表 -->
-    <div class="flex-1 bg-white rounded-lg border border-slate-200 shadow-sm p-2 overflow-hidden flex flex-col relative">
-      <h3 class="text-sm text-slate-500 mb-2">实时报警看板</h3>
+    <div class="flex-[0.8] bg-white rounded-lg border border-slate-200 shadow-sm p-2 mb-3 overflow-hidden flex flex-col relative min-h-[180px]">
+      <h3 class="text-sm font-bold text-red-600 mb-2 border-b border-slate-100 pb-1 flex items-center">
+        <span class="w-1.5 h-3 bg-red-600 mr-1.5 rounded-sm"></span>实时报警看板
+      </h3>
       <div class="flex-1 overflow-hidden relative">
         <!-- 模拟滚动 -->
         <div class="absolute w-full animate-scroll space-y-2">
@@ -35,6 +37,16 @@
             <div class="text-slate-500 text-sm">{{ item.location }}</div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- 报警分类占比饼图 -->
+    <div class="flex-1 flex flex-col gap-2">
+      <div class="flex-1 bg-white rounded-lg border border-slate-200 shadow-sm p-2 relative min-h-[160px]">
+        <v-chart class="w-full h-full" :option="deviceAlarmPieOption" autoresize />
+      </div>
+      <div class="flex-1 bg-white rounded-lg border border-slate-200 shadow-sm p-2 relative min-h-[160px]">
+        <v-chart class="w-full h-full" :option="companyAlarmPieOption" autoresize />
       </div>
     </div>
 
@@ -95,11 +107,11 @@
 import { ref } from 'vue'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { BarChart, LineChart } from 'echarts/charts'
-import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components'
+import { BarChart, LineChart, PieChart } from 'echarts/charts'
+import { TooltipComponent, GridComponent, LegendComponent, TitleComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
 
-use([CanvasRenderer, BarChart, LineChart, TooltipComponent, GridComponent, LegendComponent])
+use([CanvasRenderer, BarChart, LineChart, PieChart, TooltipComponent, GridComponent, LegendComponent, TitleComponent])
 
 const dialogVisible = ref(false)
 
@@ -148,6 +160,53 @@ const trendChartOption = ref({
   series: [
     { name: 'A类', type: 'line', data: [5, 2, 4, 1, 3, 2], itemStyle: { color: '#ef4444' }, label: { show: true, position: 'top', color: '#475569', fontSize: 12 } },
     { name: 'B类', type: 'line', data: [10, 8, 12, 5, 9, 7], itemStyle: { color: '#f59e0b' }, label: { show: true, position: 'top', color: '#475569', fontSize: 12 } }
+  ]
+})
+
+const deviceAlarmPieOption = ref({
+  title: { text: '设备报警占比', textStyle: { color: '#475569', fontSize: 12 }, left: 'center', top: '5%' },
+  tooltip: { trigger: 'item' },
+  legend: { show: false },
+  series: [
+    {
+      name: '设备报警',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      center: ['50%', '55%'],
+      itemStyle: { borderColor: '#ffffff', borderWidth: 2 },
+      label: { show: true, formatter: '{b}\n{c}', color: '#64748b', fontSize: 10 },
+      labelLine: { show: true, length: 5, length2: 5 },
+      data: [
+        { value: 12, name: '艾默生', itemStyle: { color: '#3b82f6' } },
+        { value: 8, name: '西克', itemStyle: { color: '#10b981' } },
+        { value: 5, name: '中核维斯', itemStyle: { color: '#f59e0b' } },
+        { value: 4, name: '埃尔斯特', itemStyle: { color: '#a855f7' } }
+      ]
+    }
+  ]
+})
+
+const companyAlarmPieOption = ref({
+  title: { text: '区域报警占比', textStyle: { color: '#475569', fontSize: 12 }, left: 'center', top: '5%' },
+  tooltip: { trigger: 'item' },
+  legend: { show: false },
+  series: [
+    {
+      name: '区域报警',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      center: ['50%', '55%'],
+      itemStyle: { borderColor: '#ffffff', borderWidth: 2 },
+      label: { show: true, formatter: '{b}\n{c}', color: '#64748b', fontSize: 10 },
+      labelLine: { show: true, length: 5, length2: 5 },
+      data: [
+        { value: 15, name: '贵州管网公司', itemStyle: { color: '#ef4444' } },
+        { value: 10, name: '兰成渝输油分公司', itemStyle: { color: '#3b82f6' } },
+        { value: 8, name: '重庆输油气输油分公司', itemStyle: { color: '#10b981' } },
+        { value: 6, name: '重庆管道公司', itemStyle: { color: '#a855f7' } },
+        { value: 4, name: '贵阳输油气分公司', itemStyle: { color: '#64748b' } }
+      ]
+    }
   ]
 })
 </script>
