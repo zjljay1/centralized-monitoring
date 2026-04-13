@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg-primary: #f1f5f9; /* 浅灰蓝色背景 */
+  --color-bg-card: #ffffff;    /* 纯白卡片 */
+  --color-bg-header: #ffffff;  /* 纯白头部 */
+  
+  --color-text-primary: #1e293b;   /* 深色主文本 */
+  --color-text-secondary: #64748b; /* 灰色次文本 */
+  
+  --color-normal: #10b981; /* 正常-绿色 */
+  --color-warning: #f59e0b; /* 警告-黄色 */
+  --color-alarm: #ef4444; /* 报警-红色 */
+  --color-offline: #94a3b8; /* 离线-灰色 */
+  --color-primary: #2563eb; /* 蓝 */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto; /* 允许在屏幕较小时滚动 */
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
